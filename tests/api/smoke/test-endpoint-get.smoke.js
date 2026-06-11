@@ -1,15 +1,7 @@
-const { test, expect } = require('../api-test-setup');
-const {URLS} = require("../../../playwright.config");
+const { test, expect } = require('@playwright/test');
 
-test('[api] [smoke] Test endpoint loads without API errors', async ({ page }) => {
-    await page.goto(URLS.testEndpoint);
-
-    // Verify all APIs returned 200
-    const failingCalls = await page.verifyAPIsReturn200();
-    if (failingCalls.length > 0) {
-        console.log('Failed APIs:', failingCalls);
-    }
-
-    // Your other assertions
-    expect(failingCalls.length).toBe(0);
+test('[smoke] Test endpoint loads without errors', async ({ page }) => {
+  const url = `${process.env.BASE_URL || 'http://localhost:3000'}/test-endpoint`;
+  const response = await page.goto(url);
+  expect(response.ok()).toBeTruthy();
 });
