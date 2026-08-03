@@ -1,0 +1,18 @@
+import { test, expect } from '@playwright/test';
+
+// deterministic reachability smoke generated from a concrete unguarded route with no required request values
+// Source: GET /mocks/client-input-variables
+
+
+
+test('smoke: GET /mocks/client-input-variables', async ({ request }) => {
+  
+  const response = await request.get(`${process.env.BASE_URL}/mocks/client-input-variables`);
+  
+  // Reachability only: any HTTP response proves the service accepted the connection.
+  // This does not prove successful endpoint behavior.
+  const status = response.status();
+  expect(status).toBeGreaterThanOrEqual(100);
+  expect(status).toBeLessThan(600);
+  
+});
